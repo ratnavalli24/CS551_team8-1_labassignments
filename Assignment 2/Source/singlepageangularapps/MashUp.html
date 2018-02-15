@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mashup Application</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js" type="application/javascript"></script>
+    <!--<style>
+        .weatherModule {
+            background: #f2f2f2;
+            height: 150px;
+            width: 250px;
+            border: 1px dashed #ccc;
+            padding: 1em;
+        }
+
+    </style>-->
+</head>
+<body>
+<div ng-app="foodapi" ng-controller="foodctrl">
+    <input type="text"  ng-model="foodid" id="foodid"/>
+    <!--<input type="text"  ng-model="cityid" id="cityid" />-->
+    <button id="btn" ng-click="getFoodDetails()"> Show Food Details </button>
+    <button id="audio" ng-click="getFoodSpeech()"> Listen Food Details </button>
+    <br/>
+    <br/>
+    <!--<div class = "foodModule">-->
+    <div class="form" style="padding: 10px; margin:20px;">
+        <h5 style="font-family: 'Verdana'; color: #0b0b0b;"><b><u>Food Report</u></b></h5>
+
+        <table>
+            <!--<tr>
+                <td colspan="2" align="center">
+                    <img ng-src="{{currentIcon}}" style="alignment: right"/></td>
+            </tr>-->
+            <!--<tr>
+                <td align="left"><b>Sky :</b></td>
+                <td align="left"> {{weather}}</td>
+            </tr>
+            <tr>
+                <td align="left"><b>Temperature(&#8457;) : </b></td>
+                <td align="left"> {{temp}}</td>
+            </tr>
+            <tr>
+                <td align="left"><b>Humidity : </b></td>
+                <td align="left"> {{humidity}}</td>
+            </tr>
+            <tr>
+                <td align="left"><b>Wind Mph : </b></td>
+                <td align="left"> {{wind}}</td>
+            </tr>
+            <tr>
+                <td align="left"><b>Pressure(mb) : </b></td>
+                <td align="left"> {{pressure}}</td>
+            </tr>-->
+            <tr>
+                <td align="left"><b>Calories : </b></td>
+                <td align="left"> {{calories}}</td>
+            </tr>
+            <tr>
+                <td align="left"><b>Total Weight : </b></td>
+                <td align="left"> {{totalWeight}}</td>
+            </tr>
+        </table>
+    </div>
+    <!--<p class="currentConditions" ng-bind-html-unsafe="currentweather.html"></p>-->
+    <div class="currentIcon" ng-bind-html-unsafe="currentIcon.html"></div>
+    <!--</div>-->
+</div>
+</body>
+</html>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+    angular.module('foodapi', [])
+        .controller('foodctrl', function($scope, $http) {
+
+            $scope.getFoodDetails = function() {
+                var foodid = document.getElementById('foodid').value;
+                // var cityid = document.getElementById('cityid').value;
+                $http.get('https://api.edamam.com/api/nutrition-data?app_id=6d4822a3&app_key=69300d7d6684cad14f54993feeb8a592&ingr='+foodid+'').success(function(data) {
+                    console.log(data);
+                   /* $scope.temp = data.current_observation.temp_f;
+                    // $scope.icon = data.current_observation.icon_url;
+                    $scope.weather = data.current_observation.weather;
+                    $scope.humidity = data.current_observation.relative_humidity;
+                    $scope.wind= data.current_observation.wind_mph;
+                    $scope.pressure = data.current_observation.pressure_mb;*/
+                    $scope.calories = data.calories;
+                    $scope.totalWeight = data.totalWeight;
+
+                    // console.log(weather);
+                    // console.log(humidity);
+
+
+                    // $scope.currentweather = {
+                    //     html: "Currently " + temp + " &deg; F and " + weather + ""
+                    // }
+
+
+                })
+            }
+            $scope.getFoodSpeech = function () {
+                var text = document.getElementById('foodid').value;
+                window.location.href = "https://stream.watsonplatform.net/text-to-speech/api/v1/synthesize?accept=audio/wav&text="+text+"&voice=en-US_MichaelVoice";
+    /*$.ajax
+    ({
+        type: "POST",
+        url: url,
+        dataType: "application/json; charset=utf-8",
+        username : "7e249865-90db-48ac-b469-c7378ecfab37",
+        password : "Int6cWL2eOXn",
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'audio/wav',
+             'Authorization': ("Basic " + btoa("7e249865-90db-48ac-b469-c7378ecfab37" + ":" + "Int6cWL2eOXn"))
+        },
+
+        success: function (content) {
+            alert('ok');
+        },
+
+    });
+
+    $("#speech").attr("src", url)[0].play();
+
+*/
+            }
+
+        });
+
+
+</script>

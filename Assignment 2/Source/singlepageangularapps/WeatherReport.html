@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Report</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js" type="application/javascript"></script>
+    <!--<style>
+        .weatherModule {
+            background: #f2f2f2;
+            height: 150px;
+            width: 250px;
+            border: 1px dashed #ccc;
+            padding: 1em;
+        }
+
+    </style>-->
+</head>
+<body>
+<div ng-app="weather" ng-controller="weatherctrl">
+    <input type="text"  ng-model="stateid" id="stateid"/>
+    <input type="text"  ng-model="cityid" id="cityid" />
+    <button id="btn" ng-click="getWeather()"> Show Weather </button>
+    <br/>
+    <br/>
+    <!--<div class = "weatherModule">-->
+        <div class="form" style="padding: 10px; margin:20px;">
+            <h5 style="font-family: 'Verdana'; color: #0b0b0b;"><b><u>Weather Report</u></b></h5>
+
+            <table>
+                <!--<tr>
+                    <td colspan="2" align="center">
+                        <img ng-src="{{currentIcon}}" style="alignment: right"/></td>
+                </tr>-->
+                <tr>
+                    <td align="left"><b>Sky :</b></td>
+                    <td align="left"> {{weather}}</td>
+                </tr>
+                <tr>
+                    <td align="left"><b>Temperature(&#8457;) : </b></td>
+                    <td align="left"> {{temp}}</td>
+                </tr>
+                <tr>
+                    <td align="left"><b>Humidity : </b></td>
+                    <td align="left"> {{humidity}}</td>
+                </tr>
+                <tr>
+                    <td align="left"><b>Wind Mph : </b></td>
+                    <td align="left"> {{wind}}</td>
+                </tr>
+                <tr>
+                    <td align="left"><b>Pressure(mb) : </b></td>
+                    <td align="left"> {{pressure}}</td>
+                </tr>
+
+
+            </table>
+        </div>
+        <!--<p class="currentConditions" ng-bind-html-unsafe="currentweather.html"></p>-->
+        <div class="currentIcon" ng-bind-html-unsafe="currentIcon.html"></div>
+    <!--</div>-->
+</div>
+</body>
+</html>
+<script>
+    angular.module('weather', [])
+        .controller('weatherctrl', function($scope, $http) {
+
+            $scope.getWeather = function() {
+                var stateid = document.getElementById('stateid').value;
+                var cityid = document.getElementById('cityid').value;
+                $http.get('http://api.wunderground.com/api/aabb32b294dedb15/conditions/q/'+stateid+'/'+cityid+'.json').success(function(data) {
+                    console.log(data);
+                    $scope.temp = data.current_observation.temp_f;
+                    // $scope.icon = data.current_observation.icon_url;
+                    $scope.weather = data.current_observation.weather;
+                    $scope.humidity = data.current_observation.relative_humidity;
+                    $scope.wind= data.current_observation.wind_mph;
+                    $scope.pressure = data.current_observation.pressure_mb;
+                    console.log(temp);
+                    console.log(weather);
+                    console.log(humidity);
+
+
+                    // $scope.currentweather = {
+                    //     html: "Currently " + temp + " &deg; F and " + weather + ""
+                    // }
+                    $scope.currentIcon = {
+                        html: "<img src='" + icon + "'/>"
+                    }
+
+                })
+            }
+
+        });
+
+
+</script>

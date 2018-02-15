@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+
+<html>
+<style>
+    form {
+        border: 3px solid #f1f1f1;
+    }
+
+    input[type=text], input[type=password] {
+        width: 30%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 10%;
+    }
+
+    .cancelbtn {
+        width: auto;
+        padding: 10px 18px;
+        background-color: #f44336;
+    }
+
+    .imgcontainer {
+        text-align: center;
+        margin: 24px 0 12px 0;
+    }
+
+
+
+    .container {
+        padding: 16px;
+    }
+
+    span.psw {
+        float: right;
+        padding-top: 16px;
+    }
+
+    /* Change styles for span and cancel button on extra small screens */
+    @media screen and (max-width: 200px) {
+        span.psw {
+            display: block;
+            float: none;
+        }
+        /*    .cancelbtn {
+                width: 100%;
+            } */
+    }
+</style>
+<body>
+
+<h2>Login Form</h2>
+<a href="" style="align-content: right" >Contact Us</a>
+<a href=""  style="align-content: right">About</a>
+<div class="container">
+    <label><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" id="username" required>
+    <p>
+        <label><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" id="password" required></p>
+
+    <button type="button" onClick="clicked()" >Login</button>
+    <!--    <script type="text/Javascript" src="js/connect.js"></script>-->
+    <input type="checkbox" checked="checked"> Remember <me></me>
+
+    <br>
+
+
+
+
+</div>
+
+<a href ="http://localhost:63342/assignments/Register.html?_ijt=9h7hk2hg11v4f14nd4klt5d38h">
+    <button type="button">Register</button></a>
+<a href="#">Forgot password?</a>
+
+</div>
+</form>
+
+
+
+
+</body>
+</html>
+
+<script>
+    function clicked(){
+        var user=document.getElementById('username');
+        var pass=document.getElementById('password');
+
+        var coruser="ratnavalli";
+        var corpass= "sindhu";
+
+        if(user.value==coruser) {
+            if (pass.value == corpass) {
+                window.alert("You are logged in as " + user.value);
+                window.open("http://localhost:63342/assignments/auto.html?_ijt=s6b5s6m2t9iqms1m15e2ghccn5");
+            } else {
+                window.alert("incorrect username or password!");
+            }
+        }
+        else{
+            window.alert("incorrect username or password!");
+        }
+    }
+
+
+
+
+    // This is called with the results from from FB.getLoginStatus().
+    function statusChangeCallback(response) {
+        console.log('statusChangeCallback');
+        console.log(response);
+        // The response object is returned with a status field that lets the
+        // app know the current login status of the person.
+        // Full docs on the response object can be found in the documentation
+        // for FB.getLoginStatus().
+        if (response.status === 'connected') {
+            // Logged into your app and Facebook.
+            loginCheck();
+          //  testAPI();
+        } else if (response.status === 'not_authorized') {
+            // The person is logged into Facebook, but not your app.
+            document.getElementById('status').innerHTML = 'Please log ' +
+                'into this app.';
+        } else {
+            // The person is not logged into Facebook, so we're not sure if
+            // they are logged into this app or not.
+            //     document.getElementById('status').innerHTML = 'Please log ' +
+            //       'into Facebook.';
+        }
+    }
+
+    // This function is called when someone finishes with the Login
+    // Button.  See the onlogin handler attached to it in the sample
+    // code below.
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+    }
+
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '1370778719651427',
+            cookie     : true,  // enable cookies to allow the server to access
+                                // the session
+            xfbml      : true,  // parse social plugins on this page
+            version    : 'v2.8' // use graph api version 2.8
+        });
+
+        // Now that we've initialized the JavaScript SDK, we call
+        // FB.getLoginStatus().  This function gets the state of the
+        // person visiting this page and can return one of three states to
+        // the callback you provide.  They can be:
+        //
+        // 1. Logged into your app ('connected')
+        // 2. Logged into Facebook, but not your app ('not_authorized')
+        // 3. Not logged into Facebook and can't tell if they are logged into
+        //    your app or not.
+        //
+        // These three cases are handled in the callback function.
+
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+
+    };
+
+
+
+
+    // Load the SDK asynchronously
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.8&appId=1370778719651427";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+function loginCheck(){
+    FB.login(function(response) {
+        if (response.authResponse) {
+            //drag information about you
+            function getInfo() {
+                FB.api('/me', function (response) {
+                        console.log(response.name.toString());
+                        var str = "<b>Name</b> : " + response.name + "<br>";
+                        str += "<b>Link: </b>" + response.link + "<br>";
+                        str += "<b>Username:</b> " + response.username + "<br>";
+                        str += "<b>id: </b>" + response.id + "<br>";
+                        str += "<b>Email:</b> " + response.email + "<br>";
+                        str += "<input type='button' value='Get Photo' onclick='getPhoto();'/>";
+                        str += "<input type='button' value='Logout' onclick='Logout();'/>";
+                        document.getElementById('status').innerHTML = "Connected";
+                        var name = response.name;
+                        console.log(name)
+                        localStorage.setItem("Name", name);
+                    }
+                );
+                //document.getElementById('home').innerHTML =  document.getElementById('status').value;
+                window.location.href = 'index.html';
+            }
+
+
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('/me', function(response) {
+                console.log('Good to see you, ' + response.name + '.');
+            });
+        } else {
+            console.log('User cancelled login or did not fully authorize.');
+        }
+    });
+    }
+
+    // Here we run a very simple test of the Graph API after login is
+    // successful.  See statusChangeCallback() for when this call is made.
+  /* function testAPI() {
+      console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me', function(response) {
+            console.log('Successful login for: ' + response.name);
+            //  document.getElementById('status').innerHTML =
+            //    'Thanks for logging in, ' + response.name + '!';
+            window.alert("Thanks for logging in " + response.name + '!');
+        });
+    } */
+
+</script>
+
+
+<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>
+
+<div id="status">
+</div>
