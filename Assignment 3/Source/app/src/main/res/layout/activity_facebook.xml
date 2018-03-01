@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Login_button"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.sindhu.ase3.FacebookActivity"
+    android:background="@drawable/bg">
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="206dp" />
+
+    <EditText
+        android:textColor="#fff"
+        android:gravity="center"
+        android:textColorHint="#fff"
+        android:background="@drawable/editextstyle"
+        android:id="@+id/etuname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:textColor="#fff"
+        android:gravity="center"
+        android:textColorHint="#fff"
+        android:background="@drawable/editextstyle"
+        android:id="@+id/etpasswrd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/etuname"
+        android:layout_below="@+id/etuname"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:gravity="center"
+        android:textColor="#fff"
+        android:background="@drawable/buttonstyleselect"
+        android:id="@+id/bSignin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etpasswrd"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp"
+        android:text="Signin" />
+
+    <TextView
+        android:gravity="center"
+        android:textColorHint="#f23557"
+        android:background="@drawable/editextstyle"
+        android:id="@+id/etreg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Register here"
+        tools:text="Register here" />
+
+</RelativeLayout>
