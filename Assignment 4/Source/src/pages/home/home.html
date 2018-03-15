@@ -1,0 +1,36 @@
+
+<ion-header>
+  <ion-navbar color="#fff354">
+    <ion-title align="center">Shop out</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+
+    <ion-content class="card-background-page">
+
+
+
+      <ion-searchbar
+        [(ngModel)]="myInput"
+        [showCancelButton]="shouldShowCancel"
+        (ionInput)="onInput($event)"
+        (ionCancel)="onCancel($event)">
+      </ion-searchbar>
+      <ion-item *ngFor="let details of trail">
+
+
+        <ion-icon name="pricetag"></ion-icon>
+        <p><b>Name: {{details.name}}</b></p>
+        <p>{{details.location.formattedAddress}}</p>
+        <p>{{details.contact.phone}}</p>
+        <img src="http://image.tmdb.org/t/p/w300/{{details.backdrop_path}}">
+        <p>{{details.review}}</p>
+      </ion-item>
+      <ion-item *ngFor="let sentiment of sample">
+        <button>Score</button><br><br>
+        <b>Score:{{score}}</b>
+      </ion-item>
+    </ion-content>
+
+
